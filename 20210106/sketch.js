@@ -1,3 +1,5 @@
+// Sketch from Generative Design v2
+// http://www.generative-gestaltung.de/2/sketches/?01_P/P_1_0_01
 'use strict';
 
 function setup() {
