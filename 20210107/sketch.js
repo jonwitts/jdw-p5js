@@ -15,7 +15,7 @@
 'use strict';
 
 var segmentCount = 360;
-var radius = 300;
+var radius = 350;
 
 function setup() {
   createCanvas(800, 800);
@@ -24,7 +24,8 @@ function setup() {
 
 function draw() {
   colorMode(HSB, 360, width, height);
-  background(360, 0, height);
+  //background(360, 0, height);
+  background(0, 0, 0);
 
   var angleStep = 360 / segmentCount;
 
