@@ -1,31 +1,67 @@
 // Sketch from Generative Design v2
-// http://www.generative-gestaltung.de/2/sketches/?01_P/P_1_1_1_01
+// http://www.generative-gestaltung.de/2/sketches/?01_P/P_1_1_2_01
+
+/**
+ * changing the color circle by moving the mouse.
+ *
+ * MOUSE
+ * position x          : saturation
+ * position y          : brighness
+ *
+ * KEYS
+ * 1-5                 : number of segments
+ * s                   : save png
+ */
 'use strict';
 
-let stepX;
-let stepY;
+var segmentCount = 360;
+var radius = 300;
 
 function setup() {
-  createCanvas(800, 400);
+  createCanvas(800, 800);
   noStroke();
-  colorMode(HSB, width, height, 100); // Hue set between 0 and 800, Saturation between 0 and 400
 }
 
 function draw() {
-  stepX = mouseX + 2; // add 2 to stop being too small
-  stepY = mouseY + 2; // which would lengthen display time
-  
-  for (let gridY = 0; gridY < height; gridY += stepY) { // outer loop sets y position
-    for (let gridX = 0; gridX < width; gridX += stepX) { // inner loop sets x position
-      fill(gridX, height - gridY, 100); // hue set b gridX, sat decresses inline with gridY
-      rect(gridX, gridY, stepX, stepY);
-    }
+  colorMode(HSB, 360, width, height);
+  background(360, 0, height);
+
+  var angleStep = 360 / segmentCount;
+
+  beginShape(TRIANGLE_FAN);
+  vertex(width / 2, height / 2);
+
+  for (var angle = 0; angle <= 360; angle += angleStep) {
+    var vx = width / 2 + cos(radians(angle)) * radius;
+    var vy = height / 2 + sin(radians(angle)) * radius;
+    vertex(vx, vy);
+    fill(angle, mouseX, mouseY);
   }
+
+  endShape();
 }
 
 function keyPressed() {
   if (key == 's' || key == 'S') {
     let timeStamp = year() + "-" + month() + "-" + day() + "-" + hour() + "-" + minute() + "-" + second() + "-" + nf(millis(), 3, 0);
     saveCanvas(timeStamp, 'png');
+  }
+  
+  switch (key) {
+  case '1':
+    segmentCount = 360;
+    break;
+  case '2':
+    segmentCount = 45;
+    break;
+  case '3':
+    segmentCount = 24;
+    break;
+  case '4':
+    segmentCount = 12;
+    break;
+  case '5':
+    segmentCount = 6;
+    break;
   }
 }
