@@ -18,7 +18,6 @@ function draw() {
 }
 
 function keyPressed() {
-  
   if (key == 's' || key == 'S') {
     let timeStamp = year() + "-" + month() + "-" + day() + "-" + hour() + "-" + minute() + "-" + second() + "-" + nf(millis(), 3, 0);
     saveCanvas(timeStamp, 'png');
