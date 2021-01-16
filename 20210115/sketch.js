@@ -17,6 +17,7 @@ var tileCount = 20;
 var moduleColor;
 var moduleAlpha = 180;
 var maxDistance = 500;
+var tileShape = "R"; // start with rectangles
 
 function setup() {
   createCanvas(600, 600);
@@ -36,7 +37,12 @@ function draw() {
       diameter = diameter / maxDistance * 40;
       push();
       translate(gridX, gridY, diameter * 5);
-      ellipse(0, 0, diameter, diameter); // also nice: ellipse(...)
+      if (tileShape == "R") {
+        rect(0, 0, diameter, diameter); // display rectangles
+      }
+      if (tileShape == "E") {
+        ellipse(0, 0, diameter, diameter); // display ellipses
+      }
       pop();
     }
   }
@@ -47,4 +53,6 @@ function keyReleased() {
     let timeStamp = year() + "-" + month() + "-" + day() + "-" + hour() + "-" + minute() + "-" + second() + "-" + nf(millis(), 3, 0);
     saveCanvas(timeStamp, 'png');
   }
+  if (key == '1') { tileShape = "R";} // switch to rectangles if 1 is pressed
+  if (key == '2') { tileShape = "E";} // switch to ellipses if 2 is pressed
 }
